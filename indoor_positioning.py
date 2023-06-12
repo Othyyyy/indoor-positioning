@@ -1,5 +1,10 @@
 # indoor_positioning.py
 
+# This is an indoor positioning script that enables to estimate the coordinates of a phone inside a classroom using 4 Raspberry Pis connected to the phone's hotspot
+
+# Author : othmane-elannani@hotmail.fr
+# Date : 12/06/2023
+
 import tkinter as tk                                                                        # Importing the tkinter library for GUI
 from PIL import Image, ImageTk                                                              # Importing the PIL library for image processing
 import numpy as np                                                                          # Importing numpy library for numerical computations
@@ -12,13 +17,13 @@ import struct                                                                   
 
 s= socket.socket(socket.AF_INET, socket.SOCK_STREAM)                                        # Creating a socket object
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)                                     # Setting socket option
-s.bind(("172.20.10.4", 1234))                                                               # Binding the socket to an IP address and port
+s.bind(("172.20.10.4", 1234))                                                               # Binding the socket to the IP address and port of the main Raspberry Pi
 s.listen(5)                                                                                 # Listening for incoming connections
 
 def repeat_function():
   global last_coordinates
   global line_ids
-  raspberry_addresses = ["172.20.10.3", "172.20.10.6", "172.20.10.5"]                       # IP addresses of Raspberry Pis
+  raspberry_addresses = ["172.20.10.3", "172.20.10.6", "172.20.10.5"]                       # IP addresses of the other Raspberry Pis
   data_list = []                                                                            # Empty list to store received data
   def get_rssi():
     # Run the 'iwconfig wlan0' command and capture the output
